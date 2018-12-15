@@ -1,9 +1,7 @@
 package gui;
 
 import court.Matrix;
-import enums.Player;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.paint.Color;
 
 public class MoveView {
 
