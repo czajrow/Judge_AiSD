@@ -1,0 +1,3 @@
+291063
+algorytm_1
+java -jar -XX:+UseConcMarkSweepGC alg.jar

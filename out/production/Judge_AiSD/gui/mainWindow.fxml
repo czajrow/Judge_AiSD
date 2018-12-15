@@ -1,0 +1,55 @@
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Box?>
+<GridPane fx:controller="gui.Controller"
+          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10"
+          prefHeight="500" prefWidth="500" minHeight="500" minWidth="500" gridLinesVisible="false">
+
+    <HBox alignment="TOP_LEFT"
+          GridPane.rowIndex="0"
+          GridPane.columnIndex="0">
+        <MenuBar fx:id="menuBar">
+            <menus>
+                <Menu text="Options">
+                    <items>
+                        <MenuItem text="Choose directory"
+                                  onAction="#chooseDir"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+
+        <Spinner fx:id="spinner"
+                 GridPane.columnIndex="1">
+            <valueFactory>
+                <SpinnerValueFactory.IntegerSpinnerValueFactory min="5" max="51" amountToStepBy="2"/>
+            </valueFactory>
+        </Spinner>
+    </HBox>
+
+
+    <Button fx:id="okButton"
+            text="start"
+            onMouseClicked="#startClicked"
+            GridPane.rowIndex="1"/>
+
+    <ProgressBar fx:id="progressBar"
+                 GridPane.rowIndex="2"/>
+
+    <HBox alignment="CENTER"
+          spacing="10"
+          GridPane.rowIndex="3"
+          GridPane.columnIndex="0"
+          GridPane.columnSpan="30">
+        <Canvas fx:id="canvas1" width="400" height="400"
+                GridPane.columnIndex="0"/>
+
+        <Canvas fx:id="canvas2" width="400" height="400"
+                GridPane.columnIndex="0"/>
+
+        <ListView fx:id="listView"
+                  GridPane.columnIndex="0"
+                  onMouseClicked="#listViewClicked"/>
+    </HBox>
+</GridPane>
