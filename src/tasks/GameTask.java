@@ -13,15 +13,17 @@ import processing.ProgramManager;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GameTask extends Task<ObservableList<MoveView>> {
 
     private Canvas canvas;
-    //    private GraphicsContext gc;
     private int dimension;
 
     private List<File> dirs = new ArrayList<>();
+    private Map<String, Integer> map = new HashMap<>();
     private File dest;
     private List<MoveView> list = new ArrayList<>();
     private StringBuilder record = new StringBuilder();
@@ -74,9 +76,20 @@ public class GameTask extends Task<ObservableList<MoveView>> {
                             game.playNextMove();
                             Painter.paintMatrix(matrix, canvas);
                         }
-                        record.append(" winner: ").append(game.getWinnerAlias()).append(System.lineSeparator());
+                        String winner = game.getWinnerAlias();
+                        String looser = game.getLooserAlias();
+                        if (map.containsKey(winner)) {
+                            int score = map.get(winner);
+                            map.replace(winner, ++score);
+                        } else {
+                            map.put(winner, 1);
+                        }
+                        if (!map.containsKey(looser)) {
+                            map.put(looser, 0);
+                        }
+                        record.append(" winner: ").append(winner).append(System.lineSeparator());
                         updateProgress(++progress, maxProgress);
-                        String message = "" + game + game.getWinnerAlias();
+                        String message = "" + game + winner;
                         list.add(new MoveView(matrix, message));
                         updateValue(FXCollections.observableArrayList(list));
 
@@ -97,6 +110,28 @@ public class GameTask extends Task<ObservableList<MoveView>> {
 
             try (Writer writer = new BufferedWriter(new FileWriter(f))) {
                 writer.write(record.toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        File ff;
+        try {
+            String path = dest.getAbsolutePath() + File.separator + "logs" + File.separator + "score.txt";
+
+            ff = new File(path);
+
+            ff.getParentFile().mkdirs();
+            ff.createNewFile();
+
+            try (Writer writer = new BufferedWriter(new FileWriter(ff))) {
+                map.forEach((k, v) -> {
+                    try {
+                        writer.append(k).append(": ").append(v.toString()).append(System.lineSeparator());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
             }
         } catch (IOException e) {
             e.printStackTrace();

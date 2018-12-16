@@ -144,7 +144,6 @@ public class Game {
         if (message == null) {
             endGame();
         } else {
-            System.out.println(currentPlayer);
             changeCurrentPlayer();
         }
     }
@@ -189,6 +188,16 @@ public class Game {
             return firstPlayer.getAlias();
         } else if (winner == Player.SECOND) {
             return secondPlayer.getAlias();
+        } else {
+            return "ERROR";
+        }
+    }
+
+    public String getLooserAlias() {
+        if (winner == Player.FIRST) {
+            return secondPlayer.getAlias();
+        } else if (winner == Player.SECOND) {
+            return firstPlayer.getAlias();
         } else {
             return "ERROR";
         }
