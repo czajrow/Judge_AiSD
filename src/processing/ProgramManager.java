@@ -39,7 +39,8 @@ public class ProgramManager {
             process = processBuilder.start();
             input = new BufferedReader(new InputStreamReader(process.getInputStream()));
             output = new PrintWriter(process.getOutputStream(), true);
-        } catch (IOException e) {
+            Thread.sleep(500);
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }

@@ -8,18 +8,16 @@
           vgap="10"
           gridLinesVisible="false">
 
-    <HBox alignment="TOP_LEFT"
-          GridPane.rowIndex="0"
-          GridPane.columnIndex="0">
+    <HBox
+            GridPane.rowIndex="0"
+            GridPane.columnIndex="0">
         <MenuBar fx:id="menuBar">
-            <menus>
-                <Menu text="Options">
-                    <items>
-                        <MenuItem text="Choose directory"
-                                  onAction="#chooseDir"/>
-                    </items>
-                </Menu>
-            </menus>
+            <Menu text="Options">
+                <MenuItem text="Choose directory"
+                          onAction="#chooseDir"/>
+                <MenuItem text="Choose destination directory"
+                          onAction="#chooseDestDir"/>
+            </Menu>
         </MenuBar>
 
         <Spinner fx:id="spinner"
@@ -59,7 +57,7 @@
         <ListView fx:id="listView"
                   onMouseClicked="#listViewClicked"/>
 
-        <VBox alignment="TOP_LEFT">
+        <VBox>
             <Label text="Gracz 1:"/>
             <Label text="Gracz 1:"/>
             <Label text="Zwycięzca:"/>

@@ -11,7 +11,7 @@ import javafx.scene.canvas.Canvas;
 import processing.Game;
 import processing.ProgramManager;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +22,13 @@ public class GameTask extends Task<ObservableList<MoveView>> {
     private int dimension;
 
     private List<File> dirs = new ArrayList<>();
+    private File dest;
     private List<MoveView> list = new ArrayList<>();
+    private StringBuilder record = new StringBuilder();
 
-    public GameTask(Canvas canvas, File dir, int dimension) {
+    public GameTask(Canvas canvas, File dir, File dest, int dimension) {
 
+        this.dest = dest;
         this.dimension = dimension;
 
         for (File file : dir.listFiles()) {
@@ -37,7 +40,6 @@ public class GameTask extends Task<ObservableList<MoveView>> {
         dirs.forEach(directory -> System.out.println("\t" + directory));
 
         this.canvas = canvas;
-//        this.gc = canvas.getGraphicsContext2D();
     }
 
     @Override
@@ -48,6 +50,8 @@ public class GameTask extends Task<ObservableList<MoveView>> {
         updateProgress(progress, maxProgress);
         int gameIndex = 0;
 
+        record.append("Gier do rozegrania: ").append(maxProgress).append(System.lineSeparator());
+
         for (File player : dirs) {
             for (File opponent : dirs) {
                 if (!player.equals(opponent)) {
@@ -57,12 +61,11 @@ public class GameTask extends Task<ObservableList<MoveView>> {
                         programManager1.initializeProcess();
                         programManager2.initializeProcess();
 
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        Game game = new Game(programManager1, programManager2, dimension, gameIndex++);
+                        Game game = new Game(programManager1, programManager2, dest, dimension, gameIndex++);
+                        record.append("Game between ");
+                        record.append(programManager1.getAlias()).append(" (").append(programManager1.getName()).append(')');
+                        record.append(" and ");
+                        record.append(programManager2.getAlias()).append(" (").append(programManager2.getName()).append(')');
 
                         Matrix matrix = game.getMatrix();
                         Painter.paintMatrix(matrix, canvas);
@@ -71,6 +74,7 @@ public class GameTask extends Task<ObservableList<MoveView>> {
                             game.playNextMove();
                             Painter.paintMatrix(matrix, canvas);
                         }
+                        record.append(" winner: ").append(game.getWinnerAlias()).append(System.lineSeparator());
                         updateProgress(++progress, maxProgress);
                         String message = "" + game + game.getWinnerAlias();
                         list.add(new MoveView(matrix, message));
@@ -81,6 +85,21 @@ public class GameTask extends Task<ObservableList<MoveView>> {
                     }
                 }
             }
+        }
+        File f;
+        try {
+            String path = dest.getAbsolutePath() + File.separator + "logs" + File.separator + "duels.txt";
+
+            f = new File(path);
+
+            f.getParentFile().mkdirs();
+            f.createNewFile();
+
+            try (Writer writer = new BufferedWriter(new FileWriter(f))) {
+                writer.write(record.toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         System.out.println("koniec");
         return FXCollections.observableArrayList(list);

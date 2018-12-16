@@ -30,9 +30,8 @@ public class Controller {
     private MenuBar menuBar;
 
     private Task<ObservableList<MoveView>> gameTask;
-    private File directory = new File("programs");
-
-    private Thread thread;
+    private File directory;// = new File("programs");
+    private File destDirectory;// = new File("out");
 
     @FXML
     public void initialize() {
@@ -48,19 +47,19 @@ public class Controller {
 
     @FXML
     private void startClicked() {
-        if (directory != null) {
+        if (directory != null && destDirectory != null) {
 
             okButton.setVisible(false);
             menuBar.setVisible(false);
 
-            gameTask = new GameTask(canvas1, directory, spinner.getValue());
+            gameTask = new GameTask(canvas1, directory, destDirectory, spinner.getValue());
             spinner.setVisible(false);
 
             progressBar.progressProperty().bind(gameTask.progressProperty());
             progressBar.visibleProperty().bind(gameTask.runningProperty());
             listView.itemsProperty().bind(gameTask.valueProperty());
 
-            thread = new Thread(gameTask);
+            Thread thread = new Thread(gameTask);
             thread.setDaemon(true);
             thread.start();
         } else {
@@ -81,5 +80,12 @@ public class Controller {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Choose directory with algorithms");
         directory = directoryChooser.showDialog(new Stage());
+    }
+
+    @FXML
+    private void chooseDestDir() {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Choose destination directory");
+        destDirectory = directoryChooser.showDialog(new Stage());
     }
 }
