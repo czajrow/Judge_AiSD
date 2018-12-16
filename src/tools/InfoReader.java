@@ -10,8 +10,8 @@ import java.util.HashMap;
 
 public class InfoReader {
 
-    public static final String INDEX = "index";
     public static final String ALIAS = "alias";
+    public static final String NAME = "index";
     public static final String EXECUTE_LINE = "executeLine";
 
     public static HashMap<String, String> readInfo(File directory) throws InfoFileReadFailException {
@@ -21,8 +21,8 @@ public class InfoReader {
 
         try (BufferedReader br =
                      new BufferedReader(new FileReader(new File(infoPath)))) {
-            infoMap.put(INDEX, br.readLine());
             infoMap.put(ALIAS, br.readLine());
+            infoMap.put(NAME, br.readLine());
             infoMap.put(EXECUTE_LINE, br.readLine());
         } catch (IOException e) {
             throw new InfoFileReadFailException("Couldn't read info file in\"" + directory.getName() + "\" directory.");

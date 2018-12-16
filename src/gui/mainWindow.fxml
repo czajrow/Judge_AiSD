@@ -23,7 +23,7 @@
         <Spinner fx:id="spinner"
                  GridPane.columnIndex="1">
             <valueFactory>
-                <SpinnerValueFactory.IntegerSpinnerValueFactory min="5" max="51" amountToStepBy="2"/>
+                <SpinnerValueFactory.IntegerSpinnerValueFactory min="13" max="51" amountToStepBy="2"/>
             </valueFactory>
         </Spinner>
     </HBox>
@@ -42,14 +42,23 @@
           GridPane.rowIndex="3"
           GridPane.columnIndex="0"
           GridPane.columnSpan="30">
-        <Canvas fx:id="canvas1" width="400" height="400"
-                GridPane.columnIndex="0"/>
+        <Canvas fx:id="canvas1"
+                width="400"
+                height="400"/>
 
-        <Canvas fx:id="canvas2" width="400" height="400"
-                GridPane.columnIndex="0"/>
+        <Canvas fx:id="canvas2"
+                width="400"
+                height="400"/>
 
         <ListView fx:id="listView"
-                  GridPane.columnIndex="0"
                   onMouseClicked="#listViewClicked"/>
+
+        <VBox alignment="TOP_LEFT">
+            <Label text="Gracz 1:"/>
+            <Label text="Gracz 1:"/>
+            <Label text="Zwycięzca:"/>
+            <Label text="Powód końca gry:"/>
+        </VBox>
+
     </HBox>
 </GridPane>

@@ -30,11 +30,11 @@ public class Game {
 //        initializeGame();
 
 //        while (!gameDone) {
-            generateMove();
-            if (matrix.isFull()) {
-                System.out.println("GRA ZAKONCZONA");
-                endGame();
-            }
+        generateMove();
+        if (matrix.isFull()) {
+            System.out.println("GRA ZAKONCZONA");
+            endGame();
+        }
 //            System.out.println(matrix.toString());
 //        }
     }
@@ -48,6 +48,7 @@ public class Game {
             if (firstPlayer.hasInput()) {
                 message = firstPlayer.getMessage();
                 if (!MoveValidator.isConfirmationMessageValid(message)) {
+                    System.out.println("aaa");
                     ///TODO
                 }
             }
@@ -61,10 +62,47 @@ public class Game {
         try {
             if (secondPlayer.hasInput()) {
                 message = secondPlayer.getMessage();
+                if (!MoveValidator.isConfirmationMessageValid(message)) {
+                    System.out.println("aaa");
+                    ///TODO
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+        firstPlayer.waitForMove(String.valueOf(matrix.getFixed()));
+
+        try {
+            if (firstPlayer.hasInput()) {
+                message = firstPlayer.getMessage();
+                if (!MoveValidator.isConfirmationMessageValid(message)) {
+                    System.out.println("aaa");
+                    ///TODO
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        secondPlayer.waitForMove(String.valueOf(matrix.getFixed()));
+
+        try {
+            if (secondPlayer.hasInput()) {
+                message = secondPlayer.getMessage();
+                if (!MoveValidator.isConfirmationMessageValid(message)) {
+                    System.out.println("aaa");
+                    ///TODO
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //todo wysylanie pol fixed
+
 
         firstPlayer.waitForMove("start");
 

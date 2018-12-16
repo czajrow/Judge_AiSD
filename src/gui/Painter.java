@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 public class Painter {
 
     private static final Color DEFAULT_COLOR = Color.GRAY;
+    private static final Color FIXED_COLOR = Color.BLACK;
     private static final Color RED_PLAYER_COLOR = Color.RED;
     private static final Color GREEN_PLAYER_COLOR = Color.GREEN;
     private static final Color BACKGROUND_COLOR = Color.WHITE;
@@ -16,6 +17,7 @@ public class Painter {
 
     public static void paintMatrix(Matrix matrix, Canvas canvas) {
         GraphicsContext gc = canvas.getGraphicsContext2D();
+
         gc.setFill(BACKGROUND_COLOR);
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
@@ -39,6 +41,8 @@ public class Painter {
                 return RED_PLAYER_COLOR;
             case SECOND:
                 return GREEN_PLAYER_COLOR;
+            case FIXED:
+                return FIXED_COLOR;
             default:
                 return DEFAULT_COLOR;
         }

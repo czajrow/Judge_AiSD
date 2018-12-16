@@ -8,7 +8,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import processing.Game;
 import processing.ProgramManager;
 
@@ -19,7 +18,7 @@ import java.util.List;
 public class GameTask extends Task<ObservableList<MoveView>> {
 
     private Canvas canvas;
-    private GraphicsContext gc;
+    //    private GraphicsContext gc;
     private int dimension;
 
     private List<File> dirs = new ArrayList<>();
@@ -38,7 +37,7 @@ public class GameTask extends Task<ObservableList<MoveView>> {
         dirs.forEach(directory -> System.out.println("\t" + directory));
 
         this.canvas = canvas;
-        this.gc = canvas.getGraphicsContext2D();
+//        this.gc = canvas.getGraphicsContext2D();
     }
 
     @Override
@@ -57,14 +56,17 @@ public class GameTask extends Task<ObservableList<MoveView>> {
                         programManager1.initializeProcess();
                         programManager2.initializeProcess();
 
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         Game game = new Game(programManager1, programManager2, dimension);
-//                        try {
-//                            Thread.sleep(500);
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
+
                         Matrix matrix = game.getMatrix();
+                        Painter.paintMatrix(matrix, canvas);
                         game.initializeGame();
+                        System.out.println("aaaaaa");
                         while (!game.gameDone) {
                             game.playGame();
                             Painter.paintMatrix(matrix, canvas);

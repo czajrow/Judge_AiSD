@@ -1,7 +1,6 @@
 package processing;
 
 import exceptions.InfoFileReadFailException;
-import gui.Translator;
 import tools.InfoReader;
 import tools.Timer;
 
@@ -13,7 +12,7 @@ public class ProgramManager {
     private ProcessBuilder processBuilder;
     private Process process;
 
-    private String index;
+    private String name;
     private String alias;
 
     private BufferedReader input;
@@ -24,7 +23,7 @@ public class ProgramManager {
     public ProgramManager(File directory) throws InfoFileReadFailException {
 
         HashMap<String, String> info = InfoReader.readInfo(directory);
-        index = info.get(InfoReader.INDEX);
+        name = info.get(InfoReader.NAME);
         alias = info.get(InfoReader.ALIAS);
         String executeLine = info.get(InfoReader.EXECUTE_LINE);
 
@@ -51,9 +50,7 @@ public class ProgramManager {
 
     public String getMessage() throws IOException {
         if (hasInput()) {
-            String line = input.readLine();
-            line = Translator.in(line); // TODO
-            return line;
+            return input.readLine();
         } else {
             throw new IOException("There is no line to read");
         }
@@ -61,7 +58,7 @@ public class ProgramManager {
 
 
     public void sendMessage(String line) {
-        output.println(Translator.out(line)); // TODO
+        output.println(line);
     }
 
     public void finalizeProcess() {
@@ -75,12 +72,12 @@ public class ProgramManager {
         try {
             input.close();
         } catch (IOException e) {
-            // well...
+            e.printStackTrace();
         }
     }
 
-    public String getIndex() {
-        return index;
+    public String getName() {
+        return name;
     }
 
     public String getAlias() {

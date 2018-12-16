@@ -1,3 +1,0 @@
-291063
-algorytm_3
-java -jar -XX:+UseConcMarkSweepGC alg.jar
