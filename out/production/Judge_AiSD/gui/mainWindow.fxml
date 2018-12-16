@@ -13,7 +13,7 @@
             GridPane.columnIndex="0">
         <MenuBar fx:id="menuBar">
             <Menu text="Options">
-                <MenuItem text="Choose directory with algorithms"
+                <MenuItem text="Choose directory"
                           onAction="#chooseDir"/>
                 <MenuItem text="Choose destination directory"
                           onAction="#chooseDestDir"/>
@@ -58,12 +58,10 @@
                   onMouseClicked="#listViewClicked"/>
 
         <VBox>
-            <Label text="Zwycięzca:"
-            fx:id="labelWinner"/>
-            <Label text="Przegrany:"
-                   fx:id="labelLooser"/>
-            <Label text="Powód końca gry:"
-                   fx:id="labelReason"/>
+            <Label text="Gracz 1:"/>
+            <Label text="Gracz 1:"/>
+            <Label text="Zwycięzca:"/>
+            <Label text="Powód końca gry:"/>
         </VBox>
 
     </HBox>
