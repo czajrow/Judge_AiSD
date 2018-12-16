@@ -203,6 +203,10 @@ public class Game {
         }
     }
 
+    public String getEndGameReason() {
+        return endGameReason.toString();
+    }
+
     @Override
     public String toString() {
         return "" + firstPlayer.getAlias() + " vs " + secondPlayer.getAlias() + ": ";

@@ -28,6 +28,12 @@ public class Controller {
     private Button okButton;
     @FXML
     private MenuBar menuBar;
+    @FXML
+    private Label labelWinner;
+    @FXML
+    private Label labelLooser;
+    @FXML
+    private Label labelReason;
 
     private Task<ObservableList<MoveView>> gameTask;
     private File directory;// = new File("programs");
@@ -73,6 +79,9 @@ public class Controller {
     private void listViewClicked() {
         MoveView moveView = listView.getSelectionModel().getSelectedItem();
         moveView.paint(canvas2);
+        labelLooser.setText("Zwycięzca: " + moveView.getWinner());
+        labelWinner.setText("Przegrany : " + moveView.getLooser());
+        labelReason.setText("Powód końca gry: " + moveView.getEndReason());
     }
 
     @FXML

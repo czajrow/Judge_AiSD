@@ -87,10 +87,10 @@ public class GameTask extends Task<ObservableList<MoveView>> {
                         if (!map.containsKey(looser)) {
                             map.put(looser, 0);
                         }
-                        record.append(" winner: ").append(winner).append(System.lineSeparator());
+                        record.append(" winner: ").append(winner).append(", end game reason: ").append(game.getEndGameReason()).append(System.lineSeparator());
                         updateProgress(++progress, maxProgress);
                         String message = "" + game + winner;
-                        list.add(new MoveView(matrix, message));
+                        list.add(new MoveView(matrix, message, winner, looser, game.getEndGameReason()));
                         updateValue(FXCollections.observableArrayList(list));
 
                     } catch (InfoFileReadFailException e) {
