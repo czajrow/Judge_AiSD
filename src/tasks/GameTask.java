@@ -46,6 +46,7 @@ public class GameTask extends Task<ObservableList<MoveView>> {
         int progress = 0;
         int maxProgress = dirs.size() * (dirs.size() - 1);
         updateProgress(progress, maxProgress);
+        int gameIndex = 0;
 
         for (File player : dirs) {
             for (File opponent : dirs) {
@@ -61,14 +62,13 @@ public class GameTask extends Task<ObservableList<MoveView>> {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        Game game = new Game(programManager1, programManager2, dimension);
+                        Game game = new Game(programManager1, programManager2, dimension, gameIndex++);
 
                         Matrix matrix = game.getMatrix();
                         Painter.paintMatrix(matrix, canvas);
                         game.initializeGame();
-                        System.out.println("aaaaaa");
                         while (!game.gameDone) {
-                            game.playGame();
+                            game.playNextMove();
                             Painter.paintMatrix(matrix, canvas);
                         }
                         updateProgress(++progress, maxProgress);

@@ -1,10 +1,12 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.Box?>
 <GridPane fx:controller="gui.Controller"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10"
-          prefHeight="500" prefWidth="500" minHeight="500" minWidth="500" gridLinesVisible="false">
+          xmlns:fx="http://javafx.com/fxml"
+          alignment="center"
+          hgap="10"
+          vgap="10"
+          gridLinesVisible="false">
 
     <HBox alignment="TOP_LEFT"
           GridPane.rowIndex="0"
@@ -23,7 +25,11 @@
         <Spinner fx:id="spinner"
                  GridPane.columnIndex="1">
             <valueFactory>
-                <SpinnerValueFactory.IntegerSpinnerValueFactory min="13" max="51" amountToStepBy="2"/>
+                <SpinnerValueFactory.IntegerSpinnerValueFactory
+                        min="13"
+                        max="51"
+                        amountToStepBy="2"
+                        initialValue="17"/>
             </valueFactory>
         </Spinner>
     </HBox>

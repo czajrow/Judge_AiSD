@@ -110,7 +110,7 @@ public class ProgramManager {
 //            e.printStackTrace();
 //        }
 
-        Thread wait = new Thread(() -> {
+        Thread thread = new Thread(() -> {
             this.sendMessage(message);
             Timer timer = new Timer();
 
@@ -130,15 +130,46 @@ public class ProgramManager {
             }
         });
 
-        wait.start();
+        thread.start();
 
         try {
-            wait.join();
+            thread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-//        while (wait.isAlive() && !wait.isInterrupted()) {
+//        while (thread.isAlive() && !thread.isInterrupted()) {
 //            Timer.waitInterval();
 //        }
+    }
+
+    public void waitForInit(String message) {
+
+        Thread thread = new Thread(() -> {
+            this.sendMessage(message);
+            Timer timer = new Timer();
+
+            timer.initTimer();
+            try {
+                while (!hasInput() && !timer.initTimeExceeded()) { // while (!hasInput()) {
+                    Timer.waitInterval();
+                }
+
+                if (timer.timeExceeded()) {
+                    System.out.println("time's up");
+                    timeIsUp = true;
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
