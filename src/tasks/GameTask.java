@@ -45,7 +45,7 @@ public class GameTask extends Task<ObservableList<MoveView>> {
     }
 
     @Override
-    protected ObservableList<MoveView> call() throws Exception {
+    protected ObservableList<MoveView> call() {
 
         int progress = 0;
         int maxProgress = dirs.size() * (dirs.size() - 1);
@@ -64,6 +64,7 @@ public class GameTask extends Task<ObservableList<MoveView>> {
                         programManager2.initializeProcess();
 
                         Game game = new Game(programManager1, programManager2, dest, dimension, gameIndex++);
+
                         record.append("Game between ");
                         record.append(programManager1.getAlias()).append(" (").append(programManager1.getName()).append(')');
                         record.append(" and ");

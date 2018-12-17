@@ -1,0 +1,3 @@
+algorytm_6
+Kot Dama
+java -jar -XX:+UseConcMarkSweepGC bot.jar

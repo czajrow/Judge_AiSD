@@ -2,9 +2,7 @@ package court;
 
 import enums.Player;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,20 +18,29 @@ public class Matrix {
         DIMENSION = dimension;
 
         cells = new Cell[DIMENSION][DIMENSION];
-        List<Cell> list = new ArrayList<>();
+//        List<Cell> list = new ArrayList<>();
 
+        Random r = new Random();
         for (int x = 0; x < DIMENSION; x++) {
             for (int y = 0; y < DIMENSION; y++) {
                 cells[x][y] = new Cell(x, y);
-                list.add(cells[x][y]);
+                if (r.nextDouble() < 0.1) {
+                    cells[x][y].setOwner(Player.FIXED);
+                }
+//                list.add(cells[x][y]);
             }
         }
 
-        Random r = new Random();
-        for (int i = 0; i < (DIMENSION * DIMENSION) / 10; i++) {
-            Cell cell = list.remove(r.nextInt(list.size() + 1));
-            cell.setOwner(Player.FIXED);
-        }
+//        System.out.println("przed random");
+//
+//        Random r = new Random();
+//        int a = (DIMENSION * DIMENSION) / 10;
+//        System.out.println(a);
+//        for (int i = 0; i < (DIMENSION * DIMENSION) / 10; i++) {
+//            Cell cell = list.remove(r.nextInt(list.size() + 1));
+//            cell.setOwner(Player.FIXED);
+//        }
+//        System.out.println("po random");
 
     }
 

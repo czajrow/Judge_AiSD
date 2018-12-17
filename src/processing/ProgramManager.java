@@ -39,7 +39,7 @@ public class ProgramManager {
             process = processBuilder.start();
             input = new BufferedReader(new InputStreamReader(process.getInputStream()));
             output = new PrintWriter(process.getOutputStream(), true);
-            Thread.sleep(500);
+            Thread.sleep(200);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -74,8 +74,8 @@ public class ProgramManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        process.destroyForcibly();
-//        process.destroy();
+//        process.destroyForcibly();
+        process.destroy();
         try {
             process.waitFor();
         } catch (InterruptedException e) {

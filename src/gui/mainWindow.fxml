@@ -27,7 +27,7 @@
                         min="13"
                         max="51"
                         amountToStepBy="2"
-                        initialValue="19"/>
+                        initialValue="13"/>
             </valueFactory>
         </Spinner>
     </HBox>
