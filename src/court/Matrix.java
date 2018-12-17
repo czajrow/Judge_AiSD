@@ -5,7 +5,6 @@ import enums.Player;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,11 +28,11 @@ public class Matrix {
             }
         }
 
-        Random r = new Random();
-        for (int i = 0; i < (DIMENSION * DIMENSION) / 10; i++) {
-            Cell cell = list.remove(r.nextInt(list.size() + 1));
-            cell.setOwner(Player.FIXED);
-        }
+//        Random r = new Random();
+//        for (int i = 0; i < (DIMENSION * DIMENSION) / 10; i++) {
+//            Cell cell = list.remove(r.nextInt(list.size() + 1));
+//            cell.setOwner(Player.FIXED);
+//        }
 
     }
 
@@ -118,19 +117,20 @@ public class Matrix {
 
     private int countNeighbours(int x, int y) {
         int count = 0;
-        ;
-        if (x != DIMENSION - 1 && cells[x + 1][y].getOwner() == Player.DEFAULT) {
+
+        if (cells[(x + 1) % DIMENSION][y].getOwner() == Player.DEFAULT) {
             count++;
         }
-        if (x != 0 && cells[x - 1][y].getOwner() == Player.DEFAULT) {
+        if (cells[(x - 1 + DIMENSION) % DIMENSION][y].getOwner() == Player.DEFAULT) {
             count++;
         }
-        if (y != DIMENSION - 1 && cells[x][y + 1].getOwner() == Player.DEFAULT) {
+        if (cells[x][(y + 1) % DIMENSION].getOwner() == Player.DEFAULT) {
             count++;
         }
-        if (y != 0 && cells[x][y - 1].getOwner() == Player.DEFAULT) {
+        if (cells[x][(y - 1 + DIMENSION) % DIMENSION].getOwner() == Player.DEFAULT) {
             count++;
         }
+
         return count;
     }
 

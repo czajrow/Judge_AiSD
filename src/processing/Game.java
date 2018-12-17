@@ -62,14 +62,14 @@ public class Game {
             endGame();
             return;
         }
-        if (!sendMessageToConfirm(matrix.getFixed(), firstPlayer)) {
-            endGame();
-            return;
-        }
-        if (!sendMessageToConfirm(matrix.getFixed(), secondPlayer)) {
-            endGame();
-            return;
-        }
+//        if (!sendMessageToConfirm(matrix.getFixed(), firstPlayer)) {
+//            endGame();
+//            return;
+//        }
+//        if (!sendMessageToConfirm(matrix.getFixed(), secondPlayer)) {
+//            endGame();
+//            return;
+//        }
         if (sendMessage("start", firstPlayer) == null) {
             endGame();
         }
@@ -94,7 +94,6 @@ public class Game {
                     return null;
                 } else if (!matrix.applyMove(message, currentPlayer)) {
                     endGameReason = INCORRECT_DATA;
-                    endGame();
                     return null;
                 }
                 record.append(programManager.getAlias()).append(": ").append(message).append(System.lineSeparator());

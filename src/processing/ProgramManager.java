@@ -1,6 +1,7 @@
 package processing;
 
 import exceptions.InfoFileReadFailException;
+import gui.Translator;
 import tools.InfoReader;
 import tools.Timer;
 
@@ -51,7 +52,7 @@ public class ProgramManager {
 
     public String getMessage() throws IOException {
         if (hasInput()) {
-            return input.readLine();
+            return Translator.in(input.readLine());
         } else {
             throw new IOException("There is no line to read");
         }
@@ -59,22 +60,29 @@ public class ProgramManager {
 
 
     public void sendMessage(String line) {
-        output.println(line);
+        output.println(Translator.out(line));
     }
 
     public void finalizeProcess() {
-        sendMessage("stop");
-        long start = System.nanoTime();
-        while (process.isAlive()) {
-        }
-        System.out.println("\t\t\t\t\t" + (System.nanoTime() - start) / 100000 + "ms to finalize");
-        process.destroy();
+//        sendMessage("stop");
+//        long start = System.nanoTime();
+//        while (process.isAlive()) {
+//        }
+//        System.out.println("\t\t\t\t\t" + (System.nanoTime() - start) / 100000 + "ms to finalize");
         output.close();
         try {
             input.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        process.destroyForcibly();
+//        process.destroy();
+        try {
+            process.waitFor();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public String getName() {
@@ -92,7 +100,7 @@ public class ProgramManager {
     }
 
     public void waitForMove(String message) {
-
+//
 //        this.sendMessage(message);
 //        Timer timer = new Timer();
 //
@@ -101,6 +109,7 @@ public class ProgramManager {
 //            while (!hasInput() && !timer.timeExceeded()) { // while (!hasInput()) {
 //                Timer.waitInterval();
 //            }
+//            System.out.println(timer.getElapsedTime());
 //
 //            if (timer.timeExceeded()) {
 //                System.out.println("time's up");
@@ -131,6 +140,7 @@ public class ProgramManager {
             }
         });
 
+        thread.setDaemon(true);
         thread.start();
 
         try {
@@ -165,6 +175,7 @@ public class ProgramManager {
             }
         });
 
+        thread.setDaemon(true);
         thread.start();
 
         try {

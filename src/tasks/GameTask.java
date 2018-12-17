@@ -87,6 +87,8 @@ public class GameTask extends Task<ObservableList<MoveView>> {
                         if (!map.containsKey(looser)) {
                             map.put(looser, 0);
                         }
+                        programManager1.finalizeProcess();
+                        programManager2.finalizeProcess();
                         record.append(" winner: ").append(winner).append(", end game reason: ").append(game.getEndGameReason()).append(System.lineSeparator());
                         updateProgress(++progress, maxProgress);
                         String message = "" + game + winner;
