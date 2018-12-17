@@ -1,7 +1,6 @@
 package processing;
 
 import exceptions.InfoFileReadFailException;
-import gui.Translator;
 import tools.InfoReader;
 import tools.Timer;
 
@@ -52,7 +51,7 @@ public class ProgramManager {
 
     public String getMessage() throws IOException {
         if (hasInput()) {
-            return Translator.in(input.readLine());
+            return input.readLine();
         } else {
             throw new IOException("There is no line to read");
         }
@@ -60,7 +59,7 @@ public class ProgramManager {
 
 
     public void sendMessage(String line) {
-        output.println(Translator.out(line));
+        output.println(line);
     }
 
     public void finalizeProcess() {

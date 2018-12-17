@@ -62,14 +62,14 @@ public class Game {
             endGame();
             return;
         }
-//        if (!sendMessageToConfirm(matrix.getFixed(), firstPlayer)) {
-//            endGame();
-//            return;
-//        }
-//        if (!sendMessageToConfirm(matrix.getFixed(), secondPlayer)) {
-//            endGame();
-//            return;
-//        }
+        if (!sendMessageToConfirm(matrix.getFixed(), firstPlayer)) {
+            endGame();
+            return;
+        }
+        if (!sendMessageToConfirm(matrix.getFixed(), secondPlayer)) {
+            endGame();
+            return;
+        }
         if (sendMessage("start", firstPlayer) == null) {
             endGame();
         }

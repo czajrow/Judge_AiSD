@@ -5,6 +5,7 @@ import enums.Player;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,11 +29,11 @@ public class Matrix {
             }
         }
 
-//        Random r = new Random();
-//        for (int i = 0; i < (DIMENSION * DIMENSION) / 10; i++) {
-//            Cell cell = list.remove(r.nextInt(list.size() + 1));
-//            cell.setOwner(Player.FIXED);
-//        }
+        Random r = new Random();
+        for (int i = 0; i < (DIMENSION * DIMENSION) / 10; i++) {
+            Cell cell = list.remove(r.nextInt(list.size() + 1));
+            cell.setOwner(Player.FIXED);
+        }
 
     }
 
