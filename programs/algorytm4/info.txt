@@ -1,3 +1,0 @@
-algorytm_4
-Ala Makota
-java -jar -XX:+UseConcMarkSweepGC bot.jar

@@ -1,0 +1,3 @@
+Gier do rozegrania: 2
+Game between algorytm_2 (Anna Glowinska) and algorytm_1 (Adam Czajka) winner: algorytm_2, end game reason: TIME_EXCEEDED
+Game between algorytm_1 (Adam Czajka) and algorytm_2 (Anna Glowinska) winner: algorytm_1, end game reason: TIME_EXCEEDED

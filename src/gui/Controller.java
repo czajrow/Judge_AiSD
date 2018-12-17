@@ -36,8 +36,8 @@ public class Controller {
     private Label labelReason;
 
     private Task<ObservableList<MoveView>> gameTask;
-    private File directory = new File("programs");
-    private File destDirectory = new File("out");
+    private File directory;// = new File("programs");
+    private File destDirectory;// = new File("out");
 
     @FXML
     public void initialize() {

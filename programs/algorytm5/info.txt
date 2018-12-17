@@ -1,3 +1,0 @@
-algorytm_5
-Kot Maale
-java -jar -XX:+UseConcMarkSweepGC bot.jar
