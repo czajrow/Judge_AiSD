@@ -3,23 +3,21 @@ package gui;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.canvas.Canvas;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import tasks.GameTask;
 
 import java.io.File;
+import java.io.IOException;
 
-public class Controller {
+public class MainWindow {
 
     @FXML
     private ProgressBar progressBar;
-    @FXML
-    private Canvas canvas1;
-    @FXML
-    private Canvas canvas2;
     @FXML
     private ListView<MoveView> listView;
     @FXML
@@ -36,29 +34,24 @@ public class Controller {
     private Label labelReason;
 
     private Task<ObservableList<MoveView>> gameTask;
-    private File directory;// = new File("programs");
-    private File destDirectory;// = new File("out");
+    private File directory = new File("programs");
+    private File destDirectory = new File("out");
 
     @FXML
     public void initialize() {
-
-        canvas1.getGraphicsContext2D().setFill(Color.BLACK);
-        canvas1.getGraphicsContext2D().fillRect(0, 0, canvas1.getWidth(), canvas1.getHeight());
-
-        canvas2.getGraphicsContext2D().setFill(Color.BLACK);
-        canvas2.getGraphicsContext2D().fillRect(0, 0, canvas2.getWidth(), canvas2.getHeight());
-
         progressBar.setVisible(false);
     }
 
     @FXML
     private void startClicked() {
+
         if (directory != null && destDirectory != null) {
 
             okButton.setVisible(false);
             menuBar.setVisible(false);
 
-            gameTask = new GameTask(canvas1, directory, destDirectory, spinner.getValue());
+            gameTask = new GameTask(directory, destDirectory, spinner.getValue());
+
             spinner.setVisible(false);
 
             progressBar.progressProperty().bind(gameTask.progressProperty());
@@ -76,9 +69,18 @@ public class Controller {
     }
 
     @FXML
+    private void seeGame() throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("gameWindow.fxml"));
+        Parent root1 = fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root1, 400, 400));
+        stage.show();
+    }
+
+    @FXML
     private void listViewClicked() {
         MoveView moveView = listView.getSelectionModel().getSelectedItem();
-        moveView.paint(canvas2);
         labelLooser.setText("Zwycięzca: " + moveView.getWinner());
         labelWinner.setText("Przegrany : " + moveView.getLooser());
         labelReason.setText("Powód końca gry: " + moveView.getEndReason());
@@ -97,5 +99,4 @@ public class Controller {
         directoryChooser.setTitle("Choose destination directory");
         destDirectory = directoryChooser.showDialog(new Stage());
     }
-
 }

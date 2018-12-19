@@ -22,7 +22,7 @@ public class MoveView {
 
     @Override
     public String toString() {
-        return message;
+        return message + " " + endReason;
     }
 
     public void paint(Canvas canvas) {

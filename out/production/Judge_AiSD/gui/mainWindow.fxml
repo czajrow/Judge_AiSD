@@ -1,7 +1,7 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<GridPane fx:controller="gui.Controller"
+<GridPane fx:controller="gui.MainWindow"
           xmlns:fx="http://javafx.com/fxml"
           alignment="center"
           hgap="10"
@@ -30,40 +30,37 @@
                         initialValue="13"/>
             </valueFactory>
         </Spinner>
+
+
     </HBox>
-
-
     <Button fx:id="okButton"
             text="start"
             onMouseClicked="#startClicked"
             GridPane.rowIndex="1"/>
 
-    <ProgressBar fx:id="progressBar"
-                 GridPane.rowIndex="2"/>
 
     <HBox alignment="CENTER"
           spacing="10"
           GridPane.rowIndex="3"
           GridPane.columnIndex="0"
           GridPane.columnSpan="30">
-        <Canvas fx:id="canvas1"
-                width="400"
-                height="400"/>
 
-        <Canvas fx:id="canvas2"
-                width="400"
-                height="400"/>
-
-        <ListView fx:id="listView"
-                  onMouseClicked="#listViewClicked"/>
-
-        <VBox>
+        <VBox spacing="20">
+            <ProgressBar fx:id="progressBar"
+                         GridPane.rowIndex="2"
+                         prefWidth="500"/>
+            <ListView fx:id="listView"
+                      onMouseClicked="#listViewClicked"
+                      prefWidth="500"/>
             <Label text="Zwycięzca:"
-            fx:id="labelWinner"/>
+                   fx:id="labelWinner"/>
             <Label text="Przegrany:"
                    fx:id="labelLooser"/>
             <Label text="Powód końca gry:"
                    fx:id="labelReason"/>
+            <Button fx:id="gameButton"
+                    onMouseClicked="#seeGame"
+                    text="See game"/>
         </VBox>
 
     </HBox>

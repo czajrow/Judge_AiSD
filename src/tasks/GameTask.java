@@ -3,11 +3,9 @@ package tasks;
 import court.Matrix;
 import exceptions.InfoFileReadFailException;
 import gui.MoveView;
-import gui.Painter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-import javafx.scene.canvas.Canvas;
 import processing.Game;
 import processing.ProgramManager;
 
@@ -19,7 +17,6 @@ import java.util.Map;
 
 public class GameTask extends Task<ObservableList<MoveView>> {
 
-    private Canvas canvas;
     private int dimension;
 
     private List<File> dirs = new ArrayList<>();
@@ -28,7 +25,7 @@ public class GameTask extends Task<ObservableList<MoveView>> {
     private List<MoveView> list = new ArrayList<>();
     private StringBuilder record = new StringBuilder();
 
-    public GameTask(Canvas canvas, File dir, File dest, int dimension) {
+    public GameTask(File dir, File dest, int dimension) {
 
         this.dest = dest;
         this.dimension = dimension;
@@ -40,8 +37,6 @@ public class GameTask extends Task<ObservableList<MoveView>> {
         }
         System.out.println("Wczytane programy");
         dirs.forEach(directory -> System.out.println("\t" + directory));
-
-        this.canvas = canvas;
     }
 
     @Override
@@ -71,11 +66,9 @@ public class GameTask extends Task<ObservableList<MoveView>> {
                         record.append(programManager2.getAlias()).append(" (").append(programManager2.getName()).append(')');
 
                         Matrix matrix = game.getMatrix();
-                        Painter.paintMatrix(matrix, canvas);
                         game.initializeGame();
                         while (!game.gameDone) {
                             game.playNextMove();
-                            Painter.paintMatrix(matrix, canvas);
                         }
                         String winner = game.getWinnerAlias();
                         String looser = game.getLooserAlias();
@@ -92,9 +85,10 @@ public class GameTask extends Task<ObservableList<MoveView>> {
                         programManager2.finalizeProcess();
                         record.append(" winner: ").append(winner).append(", end game reason: ").append(game.getEndGameReason()).append(System.lineSeparator());
                         updateProgress(++progress, maxProgress);
-                        String message = "" + game + winner;
+                        String message = "" + game + "\t" + winner;
                         list.add(new MoveView(matrix, message, winner, looser, game.getEndGameReason()));
                         updateValue(FXCollections.observableArrayList(list));
+                        scheduled();
 
                     } catch (InfoFileReadFailException e) {
                         e.printStackTrace();
