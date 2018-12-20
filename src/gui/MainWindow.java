@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import records.GameShower;
+import records.GameView;
 import tasks.GameTask;
 
 import java.io.File;
@@ -19,7 +21,7 @@ public class MainWindow {
     @FXML
     private ProgressBar progressBar;
     @FXML
-    private ListView<MoveView> listView;
+    private ListView<GameView> listView;
     @FXML
     private Spinner<Integer> spinner;
     @FXML
@@ -33,7 +35,7 @@ public class MainWindow {
     @FXML
     private Label labelReason;
 
-    private Task<ObservableList<MoveView>> gameTask;
+    private Task<ObservableList<GameView>> gameTask;
     private File directory = new File("programs");
     private File destDirectory = new File("out");
 
@@ -71,19 +73,21 @@ public class MainWindow {
     @FXML
     private void seeGame() throws IOException {
 
+        GameShower.current = listView.getSelectionModel().getSelectedItem();
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("gameWindow.fxml"));
         Parent root1 = fxmlLoader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root1, 400, 400));
-        stage.show();
+        stage.showAndWait();
     }
 
     @FXML
     private void listViewClicked() {
-        MoveView moveView = listView.getSelectionModel().getSelectedItem();
-        labelLooser.setText("Zwycięzca: " + moveView.getWinner());
-        labelWinner.setText("Przegrany : " + moveView.getLooser());
-        labelReason.setText("Powód końca gry: " + moveView.getEndReason());
+        GameView gameView = listView.getSelectionModel().getSelectedItem();
+        labelLooser.setText("Zwycięzca: " + gameView.getWinner());
+        labelWinner.setText("Przegrany : " + gameView.getLooser());
+        labelReason.setText("Powód końca gry: " + gameView.getEndReason());
     }
 
     @FXML

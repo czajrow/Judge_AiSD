@@ -31,12 +31,12 @@ public class Game {
         this.firstPlayer = firstPlayer;
         this.secondPlayer = secondPlayer;
         this.destinationFile = dest;
-        currentPlayer = Player.SECOND; // first is last in initializeGame()
+        currentPlayer = Player.FIRST;
         winner = Player.DEFAULT;
         matrix = new Matrix(dimension);
         this.gameIndex = gameIndex;
 
-        record.append("Game between ");
+        record.append("GameView between ");
         record.append(firstPlayer.getAlias()).append(" (").append(firstPlayer.getName()).append(')');
         record.append(" and ");
         record.append(secondPlayer.getAlias()).append(" (").append(secondPlayer.getName()).append(')');
@@ -44,12 +44,13 @@ public class Game {
 
     }
 
-    public void playNextMove() {
+    public Matrix playNextMove() {
         generateMove();
         if (matrix.isFull()) {
             System.out.println("GRA ZAKONCZONA");
             endGame();
         }
+        return matrix.copy();
     }
 
     public void initializeGame() {
@@ -70,9 +71,11 @@ public class Game {
             endGame();
             return;
         }
-        if (sendMessage("start", firstPlayer) == null) {
+        String answer = sendMessage("start", firstPlayer);
+        if (answer == null) {
             endGame();
         }
+        currentPlayer = Player.SECOND;
     }
 
     private String sendMessage(String messageToSend, ProgramManager programManager) {

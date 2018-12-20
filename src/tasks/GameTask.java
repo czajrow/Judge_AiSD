@@ -2,12 +2,12 @@ package tasks;
 
 import court.Matrix;
 import exceptions.InfoFileReadFailException;
-import gui.MoveView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import processing.Game;
 import processing.ProgramManager;
+import records.GameView;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -15,14 +15,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GameTask extends Task<ObservableList<MoveView>> {
+public class GameTask extends Task<ObservableList<GameView>> {
 
     private int dimension;
 
     private List<File> dirs = new ArrayList<>();
     private Map<String, Integer> map = new HashMap<>();
     private File dest;
-    private List<MoveView> list = new ArrayList<>();
+    private List<GameView> list = new ArrayList<>();
     private StringBuilder record = new StringBuilder();
 
     public GameTask(File dir, File dest, int dimension) {
@@ -40,7 +40,7 @@ public class GameTask extends Task<ObservableList<MoveView>> {
     }
 
     @Override
-    protected ObservableList<MoveView> call() {
+    protected ObservableList<GameView> call() {
 
         int progress = 0;
         int maxProgress = dirs.size() * (dirs.size() - 1);
@@ -60,15 +60,16 @@ public class GameTask extends Task<ObservableList<MoveView>> {
 
                         Game game = new Game(programManager1, programManager2, dest, dimension, gameIndex++);
 
-                        record.append("Game between ");
+                        record.append("GameView between ");
                         record.append(programManager1.getAlias()).append(" (").append(programManager1.getName()).append(')');
                         record.append(" and ");
                         record.append(programManager2.getAlias()).append(" (").append(programManager2.getName()).append(')');
 
                         Matrix matrix = game.getMatrix();
                         game.initializeGame();
+                        GameView currentGameView = new GameView();
                         while (!game.gameDone) {
-                            game.playNextMove();
+                            currentGameView.addMatrix(game.playNextMove());
                         }
                         String winner = game.getWinnerAlias();
                         String looser = game.getLooserAlias();
@@ -86,7 +87,8 @@ public class GameTask extends Task<ObservableList<MoveView>> {
                         record.append(" winner: ").append(winner).append(", end game reason: ").append(game.getEndGameReason()).append(System.lineSeparator());
                         updateProgress(++progress, maxProgress);
                         String message = "" + game + "\t" + winner;
-                        list.add(new MoveView(matrix, message, winner, looser, game.getEndGameReason()));
+                        currentGameView.set(message, winner, looser, game.getEndGameReason());
+                        list.add(currentGameView);
                         updateValue(FXCollections.observableArrayList(list));
                         scheduled();
 

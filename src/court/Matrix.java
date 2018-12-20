@@ -18,7 +18,6 @@ public class Matrix {
         DIMENSION = dimension;
 
         cells = new Cell[DIMENSION][DIMENSION];
-//        List<Cell> list = new ArrayList<>();
 
         Random r = new Random();
         for (int x = 0; x < DIMENSION; x++) {
@@ -27,21 +26,20 @@ public class Matrix {
                 if (r.nextDouble() < 0.1) {
                     cells[x][y].setOwner(Player.FIXED);
                 }
-//                list.add(cells[x][y]);
             }
         }
+    }
 
-//        System.out.println("przed random");
-//
-//        Random r = new Random();
-//        int a = (DIMENSION * DIMENSION) / 10;
-//        System.out.println(a);
-//        for (int i = 0; i < (DIMENSION * DIMENSION) / 10; i++) {
-//            Cell cell = list.remove(r.nextInt(list.size() + 1));
-//            cell.setOwner(Player.FIXED);
-//        }
-//        System.out.println("po random");
-
+    public Matrix copy() {
+        Matrix result = new Matrix(DIMENSION);
+        Cell[][] cellsCopy = new Cell[DIMENSION][DIMENSION];
+        for (int x = 0; x < DIMENSION; x++) {
+            for (int y = 0; y < DIMENSION; y++) {
+                cellsCopy[x][y] = cells[x][y].copy();
+            }
+        }
+        result.cells = cellsCopy;
+        return result;
     }
 
     public void setCellOwner(int x, int y, Player player) {

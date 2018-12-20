@@ -2,16 +2,34 @@ package gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.paint.Color;
+import records.GameShower;
+import records.GameView;
 
 public class GameWindow {
 
     @FXML
     private Canvas canvas;
 
+    private GameView current;
+
     @FXML
     private void initialize() {
-        canvas.getGraphicsContext2D().setFill(Color.BLACK);
-        canvas.getGraphicsContext2D().fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        current = GameShower.current;
+        Painter.paintMatrix(current.getFirst(), canvas);
+    }
+
+    @FXML
+    private void previousClicked() {
+        Painter.paintMatrix(current.getPrevMatrix(), canvas);
+    }
+
+    @FXML
+    private void nextClicked() {
+        Painter.paintMatrix(current.getNextMatrix(), canvas);
+    }
+
+    @FXML
+    private void forwardClicked() {
+        Painter.paintMatrix(current.getForward(), canvas);
     }
 }

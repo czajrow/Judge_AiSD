@@ -16,10 +16,12 @@
                 width="300"
                 height="300"/>
         <HBox spacing="10">
-            <Button text="previous"/>
-            <Button text="next"/>
-            <Button text="5 forward"/>
-            <Button text="close"/>
+            <Button text="previous"
+                    onMouseClicked="#previousClicked"/>
+            <Button text="next"
+                    onMouseClicked="#nextClicked"/>
+            <Button text="5 forward"
+                    onMouseClicked="#forwardClicked"/>
         </HBox>
     </VBox>
 </GridPane>

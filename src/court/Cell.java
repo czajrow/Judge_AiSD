@@ -38,4 +38,10 @@ public class Cell {
     public void setOwner(Player owner) {
         this.owner = owner;
     }
+
+    public Cell copy() {
+        Cell result = new Cell((int) position.getX(), (int) position.getY());
+        result.setOwner(owner);
+        return result;
+    }
 }

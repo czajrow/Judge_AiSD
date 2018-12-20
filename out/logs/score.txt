@@ -1,6 +1,6 @@
-algorytm_3: 6
-algorytm_2: 6
-algorytm_1: 3
-algorytm_6: 5
-algorytm_5: 4
-algorytm_4: 6
+algorytm_3: 5
+algorytm_2: 3
+algorytm_1: 5
+algorytm_6: 7
+algorytm_5: 6
+algorytm_4: 4
