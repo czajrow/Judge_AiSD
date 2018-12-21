@@ -36,8 +36,8 @@ public class MainWindow {
     private Label labelReason;
 
     private Task<ObservableList<GameView2>> gameTask;
-    private File directory = new File("programs");
-    private File destDirectory = new File("out");
+    private File directory;// = new File("programs");
+    private File destDirectory;// = new File("out");
 
     @FXML
     public void initialize() {
