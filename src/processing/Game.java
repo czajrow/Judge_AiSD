@@ -1,12 +1,16 @@
 package processing;
 
 
+import court.Cell;
 import court.Matrix;
 import enums.EndGameReason;
 import enums.Player;
 import tools.MoveValidator;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import static enums.EndGameReason.*;
 
@@ -33,7 +37,16 @@ public class Game {
         this.destinationFile = dest;
         currentPlayer = Player.FIRST;
         winner = Player.DEFAULT;
-        matrix = new Matrix(dimension);
+        List<Cell> fixedCells = new ArrayList<>();
+        Random r = new Random();
+        for (int x = 0; x < dimension; x++) {
+            for (int y = 0; y < dimension; y++) {
+                if (r.nextDouble() < 0.1) {
+                    fixedCells.add(new Cell(x, y));
+                }
+            }
+        }
+        this.matrix = new Matrix(dimension, fixedCells);
         this.gameIndex = gameIndex;
 
         record.append("GameView between ");
@@ -41,41 +54,49 @@ public class Game {
         record.append(" and ");
         record.append(secondPlayer.getAlias()).append(" (").append(secondPlayer.getName()).append(')');
         record.append(System.lineSeparator()).append(System.lineSeparator());
-
     }
 
-    public Matrix playNextMove() {
-        generateMove();
+    public List<Cell> getFixedCells() {
+        return matrix.getFixedCells();
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public String playNextMove() {
+        String move = generateMove();
         if (matrix.isFull()) {
             System.out.println("GRA ZAKONCZONA");
             endGame();
         }
-        return matrix.copy();
+        return move;
     }
 
-    public void initializeGame() {
+    public String initializeGame() {
 
         if (!sendMessageToConfirm(String.valueOf(matrix.DIMENSION), firstPlayer)) {
             endGame();
-            return;
+            return null;
         }
         if (!sendMessageToConfirm(String.valueOf(matrix.DIMENSION), secondPlayer)) {
             endGame();
-            return;
+            return null;
         }
         if (!sendMessageToConfirm(matrix.getFixed(), firstPlayer)) {
             endGame();
-            return;
+            return null;
         }
         if (!sendMessageToConfirm(matrix.getFixed(), secondPlayer)) {
             endGame();
-            return;
+            return null;
         }
         String answer = sendMessage("start", firstPlayer);
         if (answer == null) {
             endGame();
         }
         currentPlayer = Player.SECOND;
+        return answer;
     }
 
     private String sendMessage(String messageToSend, ProgramManager programManager) {
@@ -139,7 +160,7 @@ public class Game {
         }
     }
 
-    private void generateMove() {
+    private String generateMove() {
         ProgramManager player = pickPlayerProgramManager();
 
         String message = sendMessage(matrix.getLastMove(), player);
@@ -148,6 +169,7 @@ public class Game {
         } else {
             changeCurrentPlayer();
         }
+        return message;
     }
 
     private void changeCurrentPlayer() {
@@ -203,6 +225,10 @@ public class Game {
         } else {
             return "ERROR";
         }
+    }
+
+    public Player getPrevPlayer() {
+        return currentPlayer == Player.FIRST ? Player.SECOND : Player.FIRST;
     }
 
     public String getEndGameReason() {

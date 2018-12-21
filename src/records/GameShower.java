@@ -1,5 +1,5 @@
 package records;
 
 public class GameShower {
-    public static GameView current;
+    public static GameView2 current;
 }

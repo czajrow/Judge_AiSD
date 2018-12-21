@@ -10,7 +10,7 @@ import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import records.GameShower;
-import records.GameView;
+import records.GameView2;
 import tasks.GameTask;
 
 import java.io.File;
@@ -21,7 +21,7 @@ public class MainWindow {
     @FXML
     private ProgressBar progressBar;
     @FXML
-    private ListView<GameView> listView;
+    private ListView<GameView2> listView;
     @FXML
     private Spinner<Integer> spinner;
     @FXML
@@ -35,9 +35,9 @@ public class MainWindow {
     @FXML
     private Label labelReason;
 
-    private Task<ObservableList<GameView>> gameTask;
-    private File directory;// = new File("programs");
-    private File destDirectory;// = new File("out");
+    private Task<ObservableList<GameView2>> gameTask;
+    private File directory = new File("programs");
+    private File destDirectory = new File("out");
 
     @FXML
     public void initialize() {

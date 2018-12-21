@@ -3,14 +3,14 @@ package gui;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import records.GameShower;
-import records.GameView;
+import records.GameView2;
 
 public class GameWindow {
 
     @FXML
     private Canvas canvas;
 
-    private GameView current;
+    private GameView2 current;
 
     @FXML
     private void initialize() {

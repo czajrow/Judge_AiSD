@@ -3,7 +3,7 @@ package court;
 import enums.Player;
 
 import java.util.LinkedList;
-import java.util.Random;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,26 +12,29 @@ public class Matrix {
     private Cell[][] cells;
     public final int DIMENSION;
     private String lastMove;
+    private List<Cell> fixed;
 
-    public Matrix(int dimension) {
+    public Matrix(int dimension, List<Cell> fixed) {
 
         DIMENSION = dimension;
+        this.fixed = fixed;
 
         cells = new Cell[DIMENSION][DIMENSION];
 
-        Random r = new Random();
+
         for (int x = 0; x < DIMENSION; x++) {
             for (int y = 0; y < DIMENSION; y++) {
                 cells[x][y] = new Cell(x, y);
-                if (r.nextDouble() < 0.1) {
-                    cells[x][y].setOwner(Player.FIXED);
-                }
             }
+        }
+
+        for (Cell c : fixed) {
+            cells[c.getX()][c.getY()].setOwner(Player.FIXED);
         }
     }
 
     public Matrix copy() {
-        Matrix result = new Matrix(DIMENSION);
+        Matrix result = new Matrix(DIMENSION, fixed);
         Cell[][] cellsCopy = new Cell[DIMENSION][DIMENSION];
         for (int x = 0; x < DIMENSION; x++) {
             for (int y = 0; y < DIMENSION; y++) {
@@ -168,5 +171,9 @@ public class Matrix {
         }
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
+    }
+
+    public List<Cell> getFixedCells() {
+        return fixed;
     }
 }

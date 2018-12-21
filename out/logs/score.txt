@@ -1,0 +1,15 @@
+algorytm_3: 15
+algorytm_2: 17
+algorytm_1: 30
+algorytm_11: 9
+algorytm_12: 14
+algorytm_13: 12
+algorytm_14: 15
+algorytm_8: 13
+algorytm_7: 17
+algorytm_6: 16
+algorytm_5: 15
+algorytm_4: 20
+algorytm_10: 22
+algorytm_15: 12
+algorytm_16: 13
