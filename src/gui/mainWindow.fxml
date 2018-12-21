@@ -50,7 +50,6 @@
                          GridPane.rowIndex="2"
                          prefWidth="500"/>
             <ListView fx:id="listView"
-                      onMouseClicked="#listViewClicked"
                       prefWidth="500"/>
             <Label text="Zwycięzca:"
                    fx:id="labelWinner"/>

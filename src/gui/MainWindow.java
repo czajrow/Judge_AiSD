@@ -83,14 +83,6 @@ public class MainWindow {
     }
 
     @FXML
-    private void listViewClicked() {
-        GameView gameView = listView.getSelectionModel().getSelectedItem();
-        labelLooser.setText("Zwycięzca: " + gameView.getWinner());
-        labelWinner.setText("Przegrany : " + gameView.getLooser());
-        labelReason.setText("Powód końca gry: " + gameView.getEndReason());
-    }
-
-    @FXML
     private void chooseDir() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Choose directory with algorithms");
