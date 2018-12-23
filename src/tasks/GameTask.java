@@ -85,7 +85,7 @@ public class GameTask extends Task<ObservableList<GameView>> {
                         programManager2.finalizeProcess();
                         record.append(" winner: ").append(winner).append(", end game reason: ").append(game.getEndGameReason()).append(System.lineSeparator());
                         updateProgress(++progress, maxProgress);
-                        String message = "" + game + "\t" + winner;
+                        String message = "" + game + " " + winner;
                         currentGameView.set(message, winner, firstPlayer, secondPlayer, game.getEndGameReason(), dimension, game.getFixedCells());
                         list.add(currentGameView);
                         updateValue(FXCollections.observableArrayList(list));
