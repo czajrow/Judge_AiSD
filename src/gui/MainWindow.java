@@ -30,8 +30,8 @@ public class MainWindow {
     private MenuBar menuBar;
 
     private Task<ObservableList<GameView>> gameTask;
-    private File directory = new File("programs3");
-    private File destDirectory = new File("out");
+    private File directory;// = new File("programs3");
+    private File destDirectory;// = new File("out");
 
     @FXML
     public void initialize() {
