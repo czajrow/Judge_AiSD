@@ -10,7 +10,7 @@ import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import records.GameShower;
-import records.GameView2;
+import records.GameView;
 import tasks.GameTask;
 
 import java.io.File;
@@ -21,23 +21,17 @@ public class MainWindow {
     @FXML
     private ProgressBar progressBar;
     @FXML
-    private ListView<GameView2> listView;
+    private ListView<GameView> listView;
     @FXML
     private Spinner<Integer> spinner;
     @FXML
     private Button okButton;
     @FXML
     private MenuBar menuBar;
-    @FXML
-    private Label labelWinner;
-    @FXML
-    private Label labelLooser;
-    @FXML
-    private Label labelReason;
 
-    private Task<ObservableList<GameView2>> gameTask;
-    private File directory;// = new File("programs");
-    private File destDirectory;// = new File("out");
+    private Task<ObservableList<GameView>> gameTask;
+    private File directory = new File("programs3");
+    private File destDirectory = new File("out");
 
     @FXML
     public void initialize() {
@@ -65,7 +59,7 @@ public class MainWindow {
             thread.start();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Choose directory with algorithms, please!");
+            alert.setHeaderText("Choose directory with algorithms and directory for logs, please!");
             alert.showAndWait();
         }
     }
@@ -75,10 +69,17 @@ public class MainWindow {
 
         GameShower.current = listView.getSelectionModel().getSelectedItem();
 
+        if (GameShower.current == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText("Choose game to show, please!");
+            alert.showAndWait();
+            return;
+        }
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("gameWindow.fxml"));
         Parent root1 = fxmlLoader.load();
         Stage stage = new Stage();
-        stage.setScene(new Scene(root1, 400, 400));
+        stage.setScene(new Scene(root1, 400, 500));
         stage.showAndWait();
     }
 

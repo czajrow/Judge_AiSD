@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
 <GridPane fx:controller="gui.GameWindow"
           xmlns:fx="http://javafx.com/fxml"
           alignment="center"
@@ -12,9 +13,20 @@
           vgap="10">
 
     <VBox spacing="20">
+
+        <HBox alignment="CENTER">
+            <VBox>
+                <Label fx:id="redPlayerLabel"/>
+                <Label fx:id="greenPlayerLabel"/>
+                <Label fx:id="winnerLabel"/>
+                <Label fx:id="endReasonLabel"/>
+            </VBox>
+        </HBox>
+
         <Canvas fx:id="canvas"
                 width="300"
                 height="300"/>
+
         <HBox spacing="10">
             <Button text="previous"
                     onMouseClicked="#previousClicked"/>
@@ -24,4 +36,5 @@
                     onMouseClicked="#forwardClicked"/>
         </HBox>
     </VBox>
+
 </GridPane>

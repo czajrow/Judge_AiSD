@@ -5,38 +5,38 @@
           xmlns:fx="http://javafx.com/fxml"
           alignment="center"
           hgap="10"
-          vgap="10"
-          gridLinesVisible="false">
+          vgap="10">
 
-    <HBox
-            GridPane.rowIndex="0"
-            GridPane.columnIndex="0">
-        <MenuBar fx:id="menuBar">
-            <Menu text="Options">
-                <MenuItem text="Choose directory with algorithms"
-                          onAction="#chooseDir"/>
-                <MenuItem text="Choose destination directory"
-                          onAction="#chooseDestDir"/>
-            </Menu>
-        </MenuBar>
+    <VBox spacing="10">
 
-        <Spinner fx:id="spinner"
-                 GridPane.columnIndex="1">
-            <valueFactory>
-                <SpinnerValueFactory.IntegerSpinnerValueFactory
-                        min="13"
-                        max="51"
-                        amountToStepBy="2"
-                        initialValue="13"/>
-            </valueFactory>
-        </Spinner>
+        <HBox>
+            <MenuBar fx:id="menuBar">
+                <Menu text="Options">
+                    <MenuItem text="Choose directory with algorithms"
+                              onAction="#chooseDir"/>
+                    <MenuItem text="Choose destination directory"
+                              onAction="#chooseDestDir"/>
+                </Menu>
+            </MenuBar>
 
+            <Spinner fx:id="spinner"
+                     GridPane.columnIndex="1">
+                <valueFactory>
+                    <SpinnerValueFactory.IntegerSpinnerValueFactory
+                            min="13"
+                            max="51"
+                            amountToStepBy="2"
+                            initialValue="13"/>
+                </valueFactory>
+            </Spinner>
+        </HBox>
 
-    </HBox>
-    <Button fx:id="okButton"
-            text="start"
-            onMouseClicked="#startClicked"
-            GridPane.rowIndex="1"/>
+        <Button fx:id="okButton"
+                text="start"
+                onMouseClicked="#startClicked"
+                GridPane.rowIndex="1"/>
+
+    </VBox>
 
 
     <HBox alignment="CENTER"
@@ -51,14 +51,7 @@
                          prefWidth="500"/>
             <ListView fx:id="listView"
                       prefWidth="500"/>
-            <Label text="Zwycięzca:"
-                   fx:id="labelWinner"/>
-            <Label text="Przegrany:"
-                   fx:id="labelLooser"/>
-            <Label text="Powód końca gry:"
-                   fx:id="labelReason"/>
-            <Button fx:id="gameButton"
-                    onMouseClicked="#seeGame"
+            <Button onMouseClicked="#seeGame"
                     text="See game"/>
         </VBox>
 

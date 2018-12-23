@@ -7,11 +7,12 @@ import enums.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameView2 {
+public class GameView {
 
     private String message;
     private String winner;
-    private String looser;
+    private String firstPlayer;
+    private String secondPlayer;
     private String endReason;
     private int dimension;
     private List<Cell> fixed;
@@ -21,10 +22,11 @@ public class GameView2 {
 
     private int current = 0;
 
-    public void set(String message, String winner, String looser, String endReason, int dimension, List<Cell> fixed) {
+    public void set(String message, String winner, String firstPlayer, String secondPlayer, String endReason, int dimension, List<Cell> fixed) {
         this.message = message;
         this.winner = winner;
-        this.looser = looser;
+        this.firstPlayer = firstPlayer;
+        this.secondPlayer = secondPlayer;
         this.endReason = endReason;
         this.dimension = dimension;
         this.fixed = fixed;
@@ -39,8 +41,12 @@ public class GameView2 {
         return winner;
     }
 
-    public String getLooser() {
-        return looser;
+    public String getFirstPlayer() {
+        return firstPlayer;
+    }
+
+    public String getSecondPlayer() {
+        return secondPlayer;
     }
 
     public String getEndReason() {
@@ -53,17 +59,11 @@ public class GameView2 {
     }
 
     public Matrix getNextMatrix() {
-        if (current + 1 < moves.size()) {
-            return get(current++);
-        }
-        return get(current);
+        return get(current + 1);
     }
 
     public Matrix getPrevMatrix() {
-        if (current - 1 >= 0) {
-            return get(--current);
-        }
-        return get(current);
+        return get(current - 1);
     }
 
     public boolean isFirst() {
@@ -75,22 +75,29 @@ public class GameView2 {
     }
 
     public Matrix getFirst() {
-        current = 0;
         return get(0);
     }
 
     public Matrix getForward() {
-        if (current + 5 < moves.size()) {
-            current += 5;
-        }
-        return get(current);
+        return get(current + 5);
     }
 
     private Matrix get(int index) {
+        setCurrent(index);
         Matrix matrix = new Matrix(dimension, fixed);
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i < current; i++) {
             matrix.applyMove(moves.get(i), players.get(i));
         }
         return matrix;
+    }
+
+    private void setCurrent(int index) {
+        if (index < 0) {
+            current = 0;
+        } else if (index > moves.size() - 1) {
+            current = moves.size() - 1;
+        } else {
+            current = index;
+        }
     }
 }

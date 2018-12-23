@@ -1,0 +1,3 @@
+algorytm_2
+Anna Glowinska
+java -jar -XX:+UseConcMarkSweepGC bot.jar

@@ -207,21 +207,29 @@ public class Game {
         return matrix;
     }
 
-    public String getWinnerAlias() {
+    public String getWinnerToString() {
         if (winner == Player.FIRST) {
-            return firstPlayer.getAlias();
+            return firstPlayer.getAlias() + " (" + firstPlayer.getName() + ")";
         } else if (winner == Player.SECOND) {
-            return secondPlayer.getAlias();
+            return secondPlayer.getAlias() + " (" + secondPlayer.getName() + ")";
         } else {
-            return "ERROR";
+            return "ERROR ";
         }
     }
 
-    public String getLooserAlias() {
+    public String getFirstPlayerToString() {
+        return firstPlayer.getAlias() + " (" + firstPlayer.getName() + ")";
+    }
+
+    public String getSecondPlayerToString() {
+        return secondPlayer.getAlias() + " (" + secondPlayer.getName() + ")";
+    }
+
+    public String getLooserToString() {
         if (winner == Player.FIRST) {
-            return secondPlayer.getAlias();
+            return secondPlayer.getAlias() + " (" + secondPlayer.getName() + ")";
         } else if (winner == Player.SECOND) {
-            return firstPlayer.getAlias();
+            return firstPlayer.getAlias() + " (" + firstPlayer.getName() + ")";
         } else {
             return "ERROR";
         }
