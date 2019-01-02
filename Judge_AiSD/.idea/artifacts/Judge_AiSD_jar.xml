@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Judge_AiSD:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Judge_AiSD_jar</output-path>
+    <root id="archive" name="Judge_AiSD.jar">
+      <element id="module-output" name="Judge_AiSD" />
+    </root>
+  </artifact>
+</component>
