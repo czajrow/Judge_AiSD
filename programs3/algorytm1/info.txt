@@ -1,3 +1,0 @@
-algorytm_1
-Adam Czajka
-java -jar -XX:+UseConcMarkSweepGC bot.jar

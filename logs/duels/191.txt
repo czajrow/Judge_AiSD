@@ -1,3 +1,0 @@
-GameView between algorytm_6 (Kot Dama) and algorytm_11 (Adam Czajka)
-
-End game reason: TIME_EXCEEDED

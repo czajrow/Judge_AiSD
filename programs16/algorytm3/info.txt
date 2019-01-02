@@ -1,3 +1,0 @@
-algorytm_3
-Kamil Wysoki
-java -jar -XX:+UseConcMarkSweepGC bot.jar

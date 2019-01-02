@@ -1,4 +1,0 @@
-wins : loses : disqualifications
-algorytm_3 (Kamil Wysoki): 1-3-1
-algorytm_1 (Adam Czajka): 2-2-1
-algorytm_2 (Anna Glowinska): 3-1-0
